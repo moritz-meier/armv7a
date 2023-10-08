@@ -14,7 +14,7 @@ struct System;
 impl MemoryMap for System {
     // Map the binary image into virtual memory with a unit mapping (phys addr == virt addr),
     // so that we can keep executing after enabling the MMU.
-    const MAP: &'static [armv7a::MemoryRegion] = &[MemoryRegion::image(
+    const MAP: &'static [MemoryRegion] = &[MemoryRegion::image(
         // Image sections need to be read- and write-able as well executable,
         // otherwise a data or prefetch abort will occur.
         NORMAL.read_writeable().executeable(),
