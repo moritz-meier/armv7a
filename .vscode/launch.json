@@ -12,8 +12,8 @@
                 "target create ${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world"
             ],
             "processCreateCommands": [
-                "gdb-remote localhost:1234"
-            ]
+                "gdb-remote localhost:1234",
+            ],
         }
     ]
 }

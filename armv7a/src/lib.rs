@@ -27,7 +27,7 @@ macro_rules! startup {
         // Global start entrypoint
         #[naked]
         #[no_mangle]
-        pub unsafe extern "C" fn start() {
+        pub unsafe extern "C" fn _start() {
                ::core::arch::asm!("b {}", sym $crate::start::<$SystemImpl>, options(noreturn));
         }
     };

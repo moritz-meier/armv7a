@@ -1,5 +1,6 @@
 [build]
 target = "armv7a-none-eabi"
+# target = "armv7-unknown-linux-gnueabi"
 
 [target.armv7a-none-eabi]
 rustflags = [
@@ -7,5 +8,21 @@ rustflags = [
     "examples/zynq7000-hello-world",
     "-C",
     "link-arg=-Tarmv7a.ld",
+]
+runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=1024M  -serial null -serial mon:stdio -nographic -S -s -kernel"
+
+[target.armv7-unknown-linux-gnueabi]
+linker = "arm-unknown-linux-gnueabi-gcc"
+rustflags = [
+    "-L",
+    "examples/zynq7000-hello-world",
+    "-C",
+    "link-arg=-Tarmv7a.ld",
+    "-C",
+    "panic=abort",
+    "-C",
+    "link-arg=-nodefaultlibs",
+    "-C",
+    "link-arg=-nostartfiles",
 ]
 runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=1024M  -serial null -serial mon:stdio -nographic -S -s -kernel"

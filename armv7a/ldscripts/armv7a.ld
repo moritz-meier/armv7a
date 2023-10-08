@@ -1,6 +1,6 @@
 INCLUDE memory.x
 
-ENTRY(start);
+ENTRY(_start);
 
 PROVIDE(__SYS_STACK_SIZE = 0x1000);
 PROVIDE(__FIQ_STACK_SIZE = 0x0100);
@@ -12,7 +12,7 @@ PROVIDE(__UND_STACK_SIZE = 0x0100);
 SECTIONS {
 	. = ORIGIN(RAM);
 	__image_start = .;
-	
+
     .text : ALIGN(4) {
 		__text_start = .;
 
