@@ -1,7 +1,3 @@
 [workspace]
 resolver = "2"
-members = [
-    "armv7a",
-    "examples/stm32mp1-hello-world",
-    "examples/zynq7000-hello-world",
-]
+members = ["armv7a", "examples/zynq7000-hello-world"]

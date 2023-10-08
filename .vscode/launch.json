@@ -1,53 +1,19 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
     "configurations": [
         {
             "name": "QEMU - Attach LLDB",
             "type": "lldb",
             "request": "custom",
             "targetCreateCommands": [
-                "target create ${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world",
+                "target create ${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world"
             ],
             "processCreateCommands": [
                 "gdb-remote localhost:1234"
-            ],
-        },
-        {
-            "name": "QEMU - Launch",
-            "type": "cortex-debug",
-            "servertype": "qemu",
-            "device": "xilinx-zynq-a9",
-            "cpu": "cortex-a9",
-            "machine": "xilinx-zynq-a9",
-            "serverArgs": [
-                "-serial",
-                "null",
-                "-serial",
-                "mon:stdio",
-                "-m",
-                "size=1024M"
-            ],
-            "request": "attach",
-            "preLaunchTask": "${defaultBuildTask}",
-            "executable": "${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world",
-            "runToEntryPoint": "start",
-            "preAttachCommands": [],
-            "postAttachCommands": []
-        },
-        {
-            "name": "STM32MP1 - Launch",
-            "type": "cortex-debug",
-            "servertype": "jlink",
-            "device": "STM32MP15xx_A7",
-            "interface": "swd",
-            "request": "attach",
-            "preLaunchTask": "${defaultBuildTask}",
-            "executable": "${workspaceFolder}/target/armv7a-none-eabi/debug/stm32mp1-hello-world",
-            "runToEntryPoint": "start",
-            "preAttachCommands": [],
-            "postAttachCommands": [
-                "interrupt",
-                "load"
             ]
-        },
+        }
     ]
 }
