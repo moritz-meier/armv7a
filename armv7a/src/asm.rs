@@ -1,22 +1,23 @@
 use core::arch::asm;
+use core::sync::atomic::{compiler_fence, Ordering};
+
+#[inline(always)]
+pub fn dmb() {
+    compiler_fence(Ordering::SeqCst);
+    unsafe { asm!("dmb", options(nomem, nostack, preserves_flags)) };
+    compiler_fence(Ordering::SeqCst);
+}
 
 #[inline(always)]
 pub fn dsb() {
-    unsafe {
-        asm!("dsb 0xf");
-    }
+    compiler_fence(Ordering::SeqCst);
+    unsafe { asm!("dsb", options(nomem, nostack, preserves_flags)) };
+    compiler_fence(Ordering::SeqCst);
 }
 
 #[inline(always)]
 pub fn isb() {
-    unsafe {
-        asm!("isb 0xf");
-    }
-}
-
-#[inline(always)]
-pub fn dmb() {
-    unsafe {
-        asm!("dmb 0xf");
-    }
+    compiler_fence(Ordering::SeqCst);
+    unsafe { asm!("isb", options(nomem, nostack, preserves_flags)) };
+    compiler_fence(Ordering::SeqCst);
 }

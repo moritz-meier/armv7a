@@ -32,7 +32,7 @@ macro_rules! coproc_write_raw {
     };
 }
 
-mod bpiall;
+mod cache_ops;
 mod ccsidr;
 mod clidr;
 mod cpsr;
@@ -40,13 +40,12 @@ mod csselr;
 mod dacr;
 mod dcisw;
 mod dfsr;
-mod iciallu;
 mod sctlr;
 mod tlbiall;
 mod ttbcr;
 mod ttbr0;
 
-pub use bpiall::*;
+pub use cache_ops::*;
 pub use ccsidr::*;
 pub use clidr::*;
 pub use cpsr::*;
@@ -54,7 +53,6 @@ pub use csselr::*;
 pub use dacr::*;
 pub use dcisw::*;
 pub use dfsr::*;
-pub use iciallu::*;
 pub use sctlr::*;
 pub use tlbiall::*;
 pub use ttbcr::*;
