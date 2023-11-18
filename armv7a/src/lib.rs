@@ -9,6 +9,7 @@
 #![allow(dead_code)]
 
 mod asm;
+mod cache;
 mod critical_section_impl;
 mod mmu;
 mod registers;
@@ -33,6 +34,8 @@ macro_rules! startup {
     };
 }
 
+pub trait System: EntryPoint + MemoryMap {}
+
 pub trait EntryPoint {
     fn main() -> !;
 }
@@ -41,6 +44,8 @@ pub trait EntryPoint {
 pub unsafe extern "C" fn start<SystemImpl: EntryPoint + MemoryMap>() -> ! {
     asm!(
         "cpsid if",
+
+        "sev",
 
         // Put any cores other than 0 to sleep
         "mrc p15, 0, r0, c0, c0, 5",
@@ -115,39 +120,9 @@ extern "C" fn init<SystemImpl: MemoryMap>() {
     // Invalidate entire Unified TLB
     TLBIALL.set(0);
 
-    // Invalidate entire branch predictor array
-    BPIALL.set(0);
-    dsb();
-    isb();
-
-    // Invalidate instruction cache and flush branch target cache
-    ICIALLU.set(0);
-    dsb();
-    isb();
-
-    // Invalidate the entire data or unified cache
-    // https://github.com/ARM-software/CMSIS_5/blob/e94a96201a97be3e84d3d6ef081d2f0f7db9b5fd/CMSIS/Core_A/Include/core_ca.h#L1318
-    let clidr = CLIDR.extract();
-    for level in 0..7 {
-        let cache_type = (clidr.get() >> (level * 3)) & 0b111;
-        if (2..=4).contains(&cache_type) {
-            CSSELR.set(level << 1);
-
-            let ccsidr = CCSIDR.extract();
-            let num_sets = ccsidr.read(CCSIDR::NumSets) + 1;
-            let num_ways = ccsidr.read(CCSIDR::Associativity) + 1;
-            let log2_linesize = ccsidr.read(CCSIDR::LineSize) + 2 + 2;
-            let shift_way = num_ways.leading_zeros();
-
-            for way in (0..num_ways).rev() {
-                for set in (0..num_sets).rev() {
-                    DCISW.set((level << 1) | (set << log2_linesize) | way << shift_way);
-                }
-            }
-
-            dmb();
-        }
-    }
+    cache::invalidate_branch_prediction();
+    cache::invalidate_icache_all();
+    cache::invalidate_dcache_all();
 
     // Map initial regions
     for region in SystemImpl::MAP {

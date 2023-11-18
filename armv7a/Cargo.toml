@@ -12,5 +12,6 @@ critical-section-multi-core = ["critical-section/restore-state-u32"]
 
 [dependencies]
 critical-section = "1.1.1"
-macropol = "0.1.3"
 tock-registers = { git = "https://github.com/moritz-meier/tock.git", branch = "feature/fieldvalue-from-value" }
+macropol = "0.1.3"
+impls = "1.0.3"

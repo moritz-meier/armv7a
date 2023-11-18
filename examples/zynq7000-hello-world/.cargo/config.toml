@@ -9,7 +9,7 @@ rustflags = [
     "-C",
     "link-arg=-Tarmv7a.ld",
 ]
-runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=1024M  -serial null -serial mon:stdio -nographic -S -s -kernel"
+runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=512M -serial null -serial mon:stdio -nographic -S -s -kernel"
 
 [target.armv7-unknown-linux-gnueabi]
 linker = "arm-unknown-linux-gnueabi-gcc"
@@ -25,4 +25,4 @@ rustflags = [
     "-C",
     "link-arg=-nostartfiles",
 ]
-runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=1024M  -serial null -serial mon:stdio -nographic -S -s -kernel"
+runner = "qemu-system-arm -machine xilinx-zynq-a9 -m size=512M -serial null -serial mon:stdio -nographic -S -s -kernel"

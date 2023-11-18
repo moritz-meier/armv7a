@@ -58,7 +58,15 @@ tock_registers::register_bitfields! {u32,
 
         LoUIS OFFSET(21) NUMBITS(3) [],
         LoC OFFSET(24) NUMBITS(3) [],
-        LoUU OFFSET(27) NUMBITS(3) []
+        LoUU OFFSET(27) NUMBITS(3) [
+            Level1 = 0,
+            Level2 = 1,
+            Level3 = 2,
+            Level4 = 3,
+            Level5 = 4,
+            Level6 = 5,
+            Level7 = 6,
+        ]
     ]
 }
 

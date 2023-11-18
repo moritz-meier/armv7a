@@ -1,4 +1,7 @@
 {
     "rust-analyzer.cargo.target": "armv7a-none-eabi",
-    "rust-analyzer.check.allTargets": false
+    "rust-analyzer.check.allTargets": false,
+    "lldb.displayFormat": "auto",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "commands"
 }

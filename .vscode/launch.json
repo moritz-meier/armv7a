@@ -14,6 +14,24 @@
             "processCreateCommands": [
                 "gdb-remote localhost:1234",
             ],
+        },
+        {
+            "name": "QEMU - Attach GDB",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "external",
+            "executable": "${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world",
+            "gdbTarget": "localhost:1234",
+            "gdbPath": "gdb",
+        },
+        {
+            "name": "Zynq7000 - Launch",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "external",
+            "executable": "${workspaceFolder}/target/armv7a-none-eabi/debug/zynq7000-hello-world",
+            "gdbTarget": "localhost:3000",
+            "gdbPath": "gdb"
         }
     ]
 }
